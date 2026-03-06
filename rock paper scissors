@@ -1,0 +1,58 @@
+import random
+
+# Possible moves
+moves = ["rock", "paper", "scissors"]
+
+player_score = 0
+ai_score = 0
+
+def get_ai_move():
+    return random.choice(moves)
+
+def determine_winner(player, ai):
+    if player == ai:
+        return "tie"
+    elif (player == "rock" and ai == "scissors") or \
+    (player == "scissors" and ai == "paper") or \
+    (player == "paper" and ai == "rock"):
+        return "player"
+    else:
+        return "ai"
+
+print("Welcome to Rock, Paper, Scissors!")
+
+while True:
+    player_move = input("Enter rock, paper, or scissors (or 'quit' to exit): ").lower()
+
+    if player_move == "quit":
+        print("Thanks for playing!")
+        break
+
+    if player_move not in moves:
+        print("Invalid move. Try again.")
+        continue
+
+    ai_move = get_ai_move()
+
+    print(f"You chose: {player_move}")
+    print(f"AI chose: {ai_move}")
+
+    result = determine_winner(player_move, ai_move)
+
+    if result == "tie":
+        print("It's a tie!")
+    elif result == "player":
+        print("You win this round!")
+        player_score += 1
+    else:
+        print("AI wins this round!")
+        ai_score += 1
+
+    print(f"Score -> You: {player_score} | AI: {ai_score}")
+
+    play_again = input("Play another round? (yes/no): ").lower()
+    if play_again != "yes":
+        print("Final Score:")
+        print(f"You: {player_score} | AI: {ai_score}")
+        print("Goodbye!")
+        break
